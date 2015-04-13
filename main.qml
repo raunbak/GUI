@@ -109,7 +109,7 @@ ApplicationWindow {
                         twoIonPushed()
 
     }
-
+/*
     Action {
         id: sphereAction
         tooltip: "Push to fill in data for a typical spherical crystal"
@@ -134,6 +134,7 @@ ApplicationWindow {
                      textField_HistZ.text       = "250"
 
     }
+*/
 
     Action {
         id: oneiontestAction
@@ -143,9 +144,6 @@ ApplicationWindow {
                      textField_RFvoltage.text   = "220",
                      textField_ECvoltage.text   = "3.1",
                      textField_RFperiode.text   = "105",
-                     textField_HistX.text       = "250",
-                     textField_HistY.text       = "250",
-                     textField_HistZ.text       = "250",
                      textField_IonOneMass.text  = "40",
                      textField_IonOneCount.text = "1000",
                      textField_T.text           = "0.01",
@@ -155,7 +153,7 @@ ApplicationWindow {
                      textField_HistX.text       = "250",
                      textField_HistY.text       = "250",
                      textField_HistZ.text       = "250",
-                     textField_OmegaRF.text     = "25195573.0818",
+                     textField_OmegaRF.text     = "25.1955730818",
                      textField_r0.text          = "0.00235",
                      textField_z0.text          = "0.0025",
                      textField_eta.text         = "0.342",
@@ -171,23 +169,20 @@ ApplicationWindow {
 
         onTriggered: textField_RFvoltage.text   = "220",
                      textField_ECvoltage.text   = "3.1",
-                     textField_RFperiode.text   = "105", textField_RFperiode.editingFinished(),
+                     textField_RFperiode.text   = "105",
                      textField_HistX.text       = "250",
                      textField_HistY.text       = "250",
                      textField_HistZ.text       = "250",
-                     textField_IonOneMass.text  = "40",
+                     textField_IonOneMass.text  = "60",
                      textField_IonOneCount.text = "1000",
                      textField_T.text           = "0.01",
                      textField_T0.text          = "0.1",
                      textField_TimeSteps.text   = "1000000",
                      textField_StartHist.text   = "90000",
                      textField_RFperiode.text   = "105",
-                     textField_HistX.text       = "250",
-                     textField_HistY.text       = "250",
-                     textField_HistZ.text       = "250",
-                     textField_IonTwoMass.text  = "20",
-                     textField_IonTwoCount.text = "500",
-                     textField_OmegaRF.text     = "25195573.0818",
+                     textField_IonTwoMass.text  = "40",
+                     textField_IonTwoCount.text = "100",
+                     textField_OmegaRF.text     = "25.1955730818",
                      textField_r0.text          = "0.00235",
                      textField_z0.text          = "0.0025",
                      textField_eta.text         = "0.342",
@@ -202,7 +197,7 @@ ApplicationWindow {
         id: openAction
         text: "&Open"
         shortcut: StandardKey.Open
-        onTriggered: fileDialogOpen.open()
+        onTriggered: openFile.open()
         tooltip: "Open an image"
     }
 
@@ -324,23 +319,24 @@ ApplicationWindow {
         }
         Menu {
             title: "&Help"
-            MenuItem { action: aboutAction }
+            MenuItem { }//action: aboutAction }
         }
     }
 
+ /*
     FileDialog {
         id: fileDialogOpen
         nameFilters: [ "Simulation Setups (*.txt)" ]
-        onAccepted: imageViewer.open(fileUrl)
+        onAccepted: myDa
     }
 
     FileDialog {
         id: fileDialogSave
         title: "Save"
         nameFilters: [ "Simulation Setups (*.txt)" ]
-        onAccepted: imageViewer.open(fileUrl)
+        //onAccepted:
     }
-
+*/
     // Fields in the GUI
 
     TextField {
@@ -526,7 +522,7 @@ ApplicationWindow {
     TextField {
         id: textField_TimeSteps
         x: 617
-        y: 296
+        y: 353
         width: 116
         height: 23
         validator: IntValidator {bottom: 1;}
@@ -536,14 +532,14 @@ ApplicationWindow {
     Label {
         id: label_TimeSteps
         x: 617
-        y: 271
+        y: 328
         text: qsTr("Timesteps")
     }
 
     TextField {
         id: textField_StartHist
         x: 756
-        y: 296
+        y: 353
         width: 116
         height: 23
         validator: IntValidator {bottom: 1;}
@@ -553,26 +549,28 @@ ApplicationWindow {
     Label {
         id: label_StartHist
         x: 756
-        y: 271
+        y: 328
         text: qsTr("Start rec. histograms [steps]")
     }
 
     TextField {
         id: textField_RFperiode
         x: 617
-        y: 360
+        y: 296
         width: 116
         height: 23
+        text: "105"
+        readOnly: true
         validator: IntValidator {bottom: 1;}
-        placeholderText: qsTr("Insert int.")
+        placeholderText: ""
         onEditingFinished: textField_dt.text = "",
-                    textField_dt.insert(textField_dt.Center,myParameters.dt(textField_OmegaRF.text,textField_RFperiode.text))
+                           textField_dt.insert(textField_dt.Center,myParameters.dt(textField_OmegaRF.text,textField_RFperiode.text))
     }
 
     Label {
         id: label_RFperiode
         x: 617
-        y: 335
+        y: 271
         text: qsTr("Steps pr RF-periode [steps]")
 
     }
@@ -589,11 +587,11 @@ ApplicationWindow {
 
     Label {
         id: label_HistX
-        x: 217
+        x: 169
         y: 504
-        width: 19
+        width: 62
         height: 19
-        text: qsTr("x")
+        text: qsTr("# of bins in x")
     }
 
     TextField {
@@ -608,9 +606,9 @@ ApplicationWindow {
 
     Label {
         id: label_HistY
-        x: 318
+        x: 280
         y: 504
-        text: qsTr("y")
+        text: qsTr("# of bins in y")
     }
 
     TextField {
@@ -625,9 +623,9 @@ ApplicationWindow {
 
     Label {
         id: label_HistZ
-        x: 429
+        x: 385
         y: 504
-        text: qsTr("z")
+        text: qsTr("# of bins in z")
     }
 
     Button {
@@ -696,7 +694,7 @@ ApplicationWindow {
         height: 155
         title: qsTr("Autofill data.")
 
-
+/*
         Button {
             id: button_Oplate
             x: 9
@@ -718,24 +716,24 @@ ApplicationWindow {
             tooltip:"Press to fill in data for a typical spherical crystal"
             action: sphereAction
         }
-
+*/
         Button {
             id: button_oneiontest
-            x: 160
-            y: 14
+            x: 46
+            y: 13
             width: 125
             height: 34
-            text: qsTr("One ion test")
+            text: qsTr("One species test")
             action: oneiontestAction
         }
 
         Button {
             id: button_twoiontest
-            x: 160
-            y: 71
+            x: 207
+            y: 13
             width: 125
             height: 34
-            text: qsTr("Two ion test")
+            text: qsTr("Two species test")
             action: twoiontestAction
         }
     }
@@ -746,6 +744,7 @@ ApplicationWindow {
         y: 183
         width: 372
         height: 286
+        z: 1
         title: qsTr("Simulation")
     }
 
@@ -958,7 +957,7 @@ ApplicationWindow {
         id: label_OmegaR
         x: 169
         y: 397
-        text: qsTr("Omega_r [Hz]")
+        text: qsTr("Omega r [MHz]")
     }
 
     TextField {
@@ -978,7 +977,7 @@ ApplicationWindow {
         id: label_OmegaZ
         x: 305
         y: 397
-        text: "Omega_z [Hz]"
+        text: "Omega_z [MHz]"
     }
 
     TextField {
@@ -1037,7 +1036,7 @@ ApplicationWindow {
         id: label_OmegaRF
         x: 32
         y: 397
-        text: qsTr("Omega_RF [Hz]")
+        text: qsTr("Omega_RF [MHz]")
     }
 
     FileSaveDialog {
@@ -1049,6 +1048,7 @@ ApplicationWindow {
                textField1.text = saveFile.fileUrl
                textField1.text = textField1.text.substring(8,textField1.text.length)
                myDataSaveLoader.saveData(textFieldsaveData.text,textField1.text)
+
            }
            onRejected: {
                //outputFile.text = "File selected: –"
@@ -1065,16 +1065,107 @@ ApplicationWindow {
         visible: false
     }
 
+    TextField {
+        id: textFieldloadData
+        visible: false
+    }
+
+
 
     FileOpenDialog {
            id: openFile
-           title: "Save file"
+           title: "Open file"
            filename: "Configuration.txt"
 
            onAccepted: {
                textField1.text = openFile.fileUrl
                textField1.text = textField1.text.substring(8,textField1.text.length)
                myDataSaveLoader.loadData(textField1.text)
+              textFieldloadData.text = myDataSaveLoader.dataLength()
+
+               //if (textFieldloadData.text.length > 110 )
+               //{
+
+               textField_RFvoltage.text  = "",
+               textField_ECvoltage.text  =  "",
+               textField_T.text          =  "" ,
+               textField_T0.text          = "" ,
+               textField_IonOneCount.text      = "" ,
+                textField_IonOneMass.text         = "" ,
+                textField_IonTwoCount.text        = "" ,
+                textField_IonTwoMass.text        = "",
+               textField_TimeSteps.text          = "",
+               textField_StartHist.text       = "",
+                textField_RFperiode.text      = "",
+                textField_HistX.text           = "";
+                textField_HistY.text           = "",
+                textField_HistZ.text           = "",
+                textField_OmegaRF.text          = "",
+                textField_r0.text                      = "",
+                textField_z0.text                      = "",
+                textField_eta.text                    = "",
+                textField_BinSize.text            = "",
+                textField_IonOneCharge.text       = "",
+                textField_IonTwoCharge.text       = ""
+
+
+
+
+
+
+
+
+                   textField_RFvoltage.text  = myDataSaveLoader.rFvoltage(),
+                   textField_ECvoltage.text  =  myDataSaveLoader.eCvoltage(),
+                   textField_T.text          =  myDataSaveLoader.t() ,
+                   textField_T0.text          = myDataSaveLoader.t0() ,
+                   textField_IonOneCount.text      = myDataSaveLoader.ionOneCount() ,
+                    textField_IonOneMass.text         = myDataSaveLoader.ionOneMass() ,
+                    textField_IonTwoCount.text        = myDataSaveLoader.ionTwoCount() ,
+                    textField_IonTwoMass.text        = myDataSaveLoader.ionTwoMass() ,
+                   textField_TimeSteps.text          = myDataSaveLoader.timeSteps() ,
+                   textField_StartHist.text       = myDataSaveLoader.startHist(),
+                    textField_RFperiode.text      = myDataSaveLoader.rFperiode(),
+                    textField_HistX.text           = myDataSaveLoader.histX(),
+                    textField_HistY.text           = myDataSaveLoader.histY(),
+                    textField_HistZ.text           = myDataSaveLoader.histZ(),
+                    textField_OmegaRF.text          = myDataSaveLoader.omegaRF(),
+                    textField_r0.text                      = myDataSaveLoader.r0(),
+                    textField_z0.text                      = myDataSaveLoader.z0(),
+                    textField_eta.text                    = myDataSaveLoader.eta(),
+                    textField_BinSize.text            = myDataSaveLoader.binSize(),
+                    textField_IonOneCharge.text       = myDataSaveLoader.ionOneCharge(),
+                    textField_IonTwoCharge.text       = myDataSaveLoader.ionTwoCharge(),
+                   textField_RFperiode.editingFinished(),
+                   textField_eta.editingFinished()
+
+               //}
+               /*
+               else {
+
+
+                      textField_RFvoltage.text = myDataSaveLoader.rFvoltage(),
+                      textField_ECvoltage.text = myDataSaveLoader.eCvoltage() ,
+                      textField_T.text         = myDataSaveLoader.t() ,
+                      textField_T0.text        =  myDataSaveLoader.t0() ,
+                      textField_IonOneCount.text = myDataSaveLoader.ionOneCount(),
+                      textField_IonOneMass.text  = myDataSaveLoader.ionOneMass(),
+                      textField_TimeSteps.text   = myDataSaveLoader.timeSteps(),
+                      textField_StartHist.text   = myDataSaveLoader.startHist(),
+                      textField_RFperiode.text   = myDataSaveLoader.rFperiode(),
+                      textField_HistX.text       = myDataSaveLoader.histX(),
+                      textField_HistY.text       = myDataSaveLoader.histY(),
+                      textField_HistZ.text       = myDataSaveLoader.histZ(),
+                      textField_OmegaRF.text     = myDataSaveLoader.omegaRF(),
+                      textField_r0.text          = myDataSaveLoader.r0(),
+                      textField_z0.text          = myDataSaveLoader.z0(),
+                      textField_eta.text         = myDataSaveLoader.eta(),
+                      textField_BinSize.text     = myDataSaveLoader.binSize(),
+                      textField_IonOneCharge.text = myDataSaveLoader.ionOneCharge()
+
+               }
+               */
+
            }
            onRejected: {
                //outputFile.text = "File selected: –"

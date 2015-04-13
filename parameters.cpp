@@ -16,7 +16,9 @@ QString Parameters::dt(const QString &RF, const QString &StepsPrPeriode)
 {
     QString string;
 
-    double dt = (2*3.1415926535897932384626)/(RF.toDouble()*StepsPrPeriode.toDouble());
+     //double dt = 1/(RF.toDouble()/2/3.1415926535897932384626)/StepsPrPeriode.toDouble();
+
+    double dt = (2*3.1415926535897932384626)/((RF.toDouble()*1e6)*StepsPrPeriode.toDouble());
     return string.number(dt);
 }
 
@@ -33,7 +35,7 @@ QString Parameters::omegaR(const QString &RF,  const QString &eta, const QString
     double q = 2* ((charge.toDouble()*e)*Urf.toDouble())/((mass.toDouble()*u2kg)*pow(RF.toDouble(),2)*pow(r0.toDouble(),2));
     double wr = 0.5 * RF.toDouble()*sqrt(pow(q,2)/2 + a);
 
-    return string.number(wr);
+    return string.number(wr/1e6);
 
 }
 
@@ -62,6 +64,6 @@ QString Parameters::omegaZ(const QString &RF,    const QString &eta,
     double a = -4 * (eta.toDouble()*(charge.toDouble()*e)*UEC.toDouble()) / ((mass.toDouble()*u2kg)*pow(RF.toDouble(),2)*pow(z0.toDouble(),2));
     double wz = RF.toDouble()*sqrt(-a/2);
 
-    return string.number(wz);
+    return string.number(wz/1e6);
 
 }
